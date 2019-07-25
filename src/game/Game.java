@@ -1,5 +1,7 @@
 package game;
 
+import javax.swing.*;
+
 public class Game {
     private GameBoard board;
     private GamePlayer[] gamePlayers = new GamePlayer[2];
@@ -14,6 +16,36 @@ public class Game {
         gamePlayers[1] = new GamePlayer(false,'O');
 
     }
+
+    /**
+     * Метод передачи хода
+     */
+
+    void passTurn(){
+        if(playerTurn==0)
+            playerTurn=1;
+        else
+            playerTurn = 0;
+    }
+
+    /**
+     * Полчение объекта текущего игрока
+     * @return GamePlayer объекта игрока
+     */
+
+    GamePlayer getCurrentPlayer(){
+        return gamePlayers[playerTurn];
+    }
+    /**
+     * Метод показа popup-a для пользователя
+     * @param messageText - текст сообщения
+     */
+
+    void showMessege(String messageText){
+        JOptionPane.showMessageDialog(board, messageText);
+    }
+
+
 
 }
 
