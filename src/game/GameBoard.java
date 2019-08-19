@@ -89,7 +89,7 @@ public class GameBoard extends JFrame {
         boolean result = false;
 
         if(gameField[y][x] == nullSymbol)
-            return false;
+            result = true;
 
         return result;
     }

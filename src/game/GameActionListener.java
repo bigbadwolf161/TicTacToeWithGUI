@@ -20,22 +20,21 @@ public class GameActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         GameBoard board = button.getBoard();
 
-        if(board.isTurnable(row, cell)){
+        if(board.isTurnable(row, cell)) {
             updatePlayersData(board);
 
-            if(board.isFull()){
+            if (board.isFull()) {
                 board.getGame().showMessege("ничья!");
                 board.emptyField();
             }
-            else {
+            else{
                 updateByAiData(board);
             }
-
         }
+
         else {
             board.getGame().showMessege("некорректный ход");
         }
-
     }
 
     /**
