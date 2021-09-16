@@ -1,7 +1,6 @@
 package game;
 
 public class GamePlayer {
-
     private char playerSign;
     private boolean realPlayer = true;
 

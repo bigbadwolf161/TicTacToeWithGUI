@@ -1,7 +1,6 @@
 package game;
 
 import javax.swing.*;
-import javax.xml.crypto.dsig.CanonicalizationMethod;
 
 public class GameButton extends JButton {
 
@@ -22,5 +21,4 @@ public class GameButton extends JButton {
     public GameBoard getBoard(){
         return board;
     }
-
 }

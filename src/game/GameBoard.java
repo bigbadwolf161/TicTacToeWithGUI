@@ -6,23 +6,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameBoard extends JFrame {
-
     static int dimension = 3;           //размерность
     static int cellSize = 150;          //размерность одной клетки
     private char[][] gameField;         //матрица игры
     private GameButton[] gameButtons;   //массив кнопок
-
     private Game game;                  //ссылка на игру
     static char nullSymbol = '\u0000';  //null символ
 
-    public GameBoard(Game currenrGame){
+    public GameBoard(Game currenrGame) {
         this.game = currenrGame;
         initField();
-
     }
-    private void initField(){
+
+    private void initField() {
         //Задаем настройки игры
-        setBounds(cellSize*dimension, cellSize*dimension, 400, 400);
+        setBounds(cellSize * dimension, cellSize * dimension, 400, 400);
         setTitle("Крестики-нолики");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,11 +37,11 @@ public class GameBoard extends JFrame {
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         controlPanel.add(newGameButton);
-        controlPanel.setSize(cellSize*dimension,150);
+        controlPanel.setSize(cellSize * dimension, 150);
 
         JPanel gameFieldPanel = new JPanel(); //панель самой игры
-        gameFieldPanel.setLayout(new GridLayout(dimension,dimension));
-        gameFieldPanel.setSize(cellSize*dimension, cellSize*dimension);
+        gameFieldPanel.setLayout(new GridLayout(dimension, dimension));
+        gameFieldPanel.setSize(cellSize * dimension, cellSize * dimension);
 
         gameField = new char[dimension][dimension];
         gameButtons = new GameButton[dimension * dimension];
@@ -64,31 +62,33 @@ public class GameBoard extends JFrame {
     /**
      * метод очистки поля и матрицы игры
      */
-    void emptyField(){
+    void emptyField() {
         for (int i = 0; i < (dimension * dimension); i++) {
             gameButtons[i].setText("");
 
             int x = i / GameBoard.dimension;
-            int y =  i % GameBoard.dimension;
+            int y = i % GameBoard.dimension;
 
             gameField[x][y] = nullSymbol;
         }
     }
-    Game getGame(){
+
+    Game getGame() {
         return game;
     }
 
     /**
      * метод проверки доступности клетки для хода
+     *
      * @param x - по горизонтали
-     * @param  y - по вертикали
+     * @param y - по вертикали
      * @return boolean
      */
 
-    boolean isTurnable(int x, int y){
+    boolean isTurnable(int x, int y) {
         boolean result = false;
 
-        if(gameField[y][x] == nullSymbol)
+        if (gameField[y][x] == nullSymbol)
             result = true;
 
         return result;
@@ -96,19 +96,20 @@ public class GameBoard extends JFrame {
 
     /**
      * обновление матрицы игры после хода
+     *
      * @param x - по горизонтали
      * @param y - по вертикали
      */
 
-    void updateGameField(int x, int y){
+    void updateGameField(int x, int y) {
         gameField[y][x] = game.getCurrentPlayer().getPlayerSign();
     }
 
-    boolean checkWin(){
+    boolean checkWin() {
         boolean result = false;
         char playerSybmol = getGame().getCurrentPlayer().getPlayerSign();
 
-        if(checkWinDiagonals(playerSybmol)||checkWinLines(playerSybmol)){
+        if (checkWinDiagonals(playerSybmol) || checkWinLines(playerSybmol)) {
             result = true;
 
         }
@@ -117,10 +118,11 @@ public class GameBoard extends JFrame {
 
     /**
      * проверка победы по столбцам и линиям
+     *
      * @return флаг победы
      */
 
-    private boolean checkWinLines(char playerSymbol){
+    private boolean checkWinLines(char playerSymbol) {
         boolean cols, rows, result;
 
         result = false;
@@ -136,18 +138,19 @@ public class GameBoard extends JFrame {
             //это условие после каждой проверки колонки и столбца
             //позволяет остановить дальнейшее выполнение, без проверки
             //всех остальных столбцов и строк
-            if(cols || rows){
+            if (cols || rows) {
                 result = true;
                 break;
             }
 
-            if(result){
+            if (result) {
                 break;
             }
         }
-        return  result;
+        return result;
     }
-    private boolean checkWinDiagonals(char playerSymbol){
+
+    private boolean checkWinDiagonals(char playerSymbol) {
         boolean leftRight, rightLeft, result;
 
         leftRight = true;
@@ -156,32 +159,33 @@ public class GameBoard extends JFrame {
 
         for (int i = 0; i < dimension; i++) {
             leftRight &= (gameField[i][i] == playerSymbol);
-            rightLeft &= (gameField[dimension-i-1][i] == playerSymbol);
+            rightLeft &= (gameField[dimension - i - 1][i] == playerSymbol);
         }
-        if(rightLeft || leftRight){
+        if (rightLeft || leftRight) {
             result = true;
         }
-        return  result;
+        return result;
     }
 
     /**
      * метод проверки заполнености поля
+     *
      * @return boolean
      */
 
-    boolean isFull(){
+    boolean isFull() {
         boolean result = true;
 
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                if(gameField[i][j] == nullSymbol)
+                if (gameField[i][j] == nullSymbol)
                     result = false;
             }
         }
         return result;
     }
 
-    public GameButton getButton(int buttonIndex){
+    public GameButton getButton(int buttonIndex) {
         return gameButtons[buttonIndex];
     }
 
